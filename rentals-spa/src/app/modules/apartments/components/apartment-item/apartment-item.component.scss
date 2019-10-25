@@ -1,0 +1,44 @@
+@import "src/styles.scss";
+
+.apartment {
+    margin-bottom: 32px;
+
+    cursor: pointer;
+    @include app-transition(all);
+
+    &:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.05), 0 10px 10px rgba(0,0,0,0.1);
+    }
+
+    &__price {
+        font-size: 1.5em;
+    }
+
+    mat-card-title {
+        .menu-button {
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    mat-card-subtitle {
+        & > div {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    mat-card-content {
+        & > div {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    mat-card-actions {
+        & > div {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}

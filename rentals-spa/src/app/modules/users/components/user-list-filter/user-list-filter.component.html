@@ -1,0 +1,25 @@
+<div class="user-list-filter">
+    <form [formGroup]="filterForm" (submit)="apply()">
+        <mat-form-field  class="search-input">
+            <mat-label>Search</mat-label>
+            <input formControlName="search" matInput placeholder="Type in username, e.g. john_doe" />
+        </mat-form-field>
+
+        <mat-form-field class="role-select">
+            <mat-label>Role</mat-label>
+
+            <mat-select formControlName="role">
+                <mat-option value="">
+                    All
+                </mat-option>
+                <mat-option *ngFor="let role of UserRole | keyvalue" [value]="role.value">
+                    {{ role.key }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button class="apply-button" type="submit" mat-raised-button>
+            Apply filter
+        </button>
+    </form>
+</div>

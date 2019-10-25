@@ -1,0 +1,359 @@
+<div class="apartment-form">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Apartment
+            </mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="apartmentForm" (submit)="submit()">
+            <mat-card-content>
+
+                    <div class="inputs group">
+                        <mat-form-field>
+                            <mat-label>Name *</mat-label>
+                            <input
+                                autocomplete
+                                matInput
+                                type="text"
+                                placeholder="Example: Cool apartment near Centarl park, NY"
+                                formControlName="name" />
+
+                            <mat-error *ngIf="apartmentForm.get('name').errors?.maxlength">
+                                Name should not be longer than
+                                {{ apartmentForm.get('name').errors?.maxlength.requiredLength }}
+                                characters
+                            </mat-error>
+
+                            <mat-error *ngIf="apartmentForm.get('name').errors?.required">
+                                Name is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Description *</mat-label>
+                            <textarea
+                                rows="3"
+                                autocomplete
+                                matInput
+                                placeholder="Example: Cool apartment near Centarl park, NY description"
+                                formControlName="description"></textarea>
+
+                            <mat-error *ngIf="apartmentForm.get('description').errors?.maxlength">
+                                Description should not be longer than
+                                {{ apartmentForm.get('description').errors?.maxlength.requiredLength }}
+                                characters
+                            </mat-error>
+
+                            <mat-error *ngIf="apartmentForm.get('description').errors?.required">
+                                Description is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="group__3">
+
+                            <mat-form-field>
+                                <mat-label>Area size *</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="number"
+                                    placeholder="Example: 100"
+                                    formControlName="areaSize" />
+                                <span matSuffix>m<sup>2</sup> &nbsp;</span>
+
+                                <mat-error *ngIf="apartmentForm.get('areaSize').errors?.min">
+                                    Size should be bigger than
+                                    {{ apartmentForm.get('areaSize').errors?.min.min }}m<sup>2</sup>
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('areaSize').errors?.max">
+                                    Size should not be bigger than
+                                    {{ apartmentForm.get('areaSize').errors?.max.max }}m<sup>2</sup>
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('areaSize').errors?.required">
+                                    Size is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Price *</mat-label>
+                                <span matPrefix>$ &nbsp;</span>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="number"
+                                    placeholder="Example: 100"
+                                    formControlName="price" />
+
+                                <mat-error *ngIf="apartmentForm.get('price').errors?.min">
+                                    Price should be bigger than
+                                    {{ apartmentForm.get('price').errors?.min.min | currency: 'USD' }}
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('price').errors?.max">
+                                    Price should not be bigger than
+                                    {{ apartmentForm.get('price').errors?.max.max | currency: 'USD' }}
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('price').errors?.required">
+                                    Price is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Rooms *</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="number"
+                                    placeholder="Example: 3"
+                                    formControlName="roomsCount" />
+
+                                <mat-error *ngIf="apartmentForm.get('roomsCount').errors?.min">
+                                    Rooms should be more than
+                                    {{ apartmentForm.get('roomsCount').errors?.min.min }}
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('roomsCount').errors?.max">
+                                    Rooms should not be more than
+                                    {{ apartmentForm.get('roomsCount').errors?.max.max }}
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('roomsCount').errors?.required">
+                                    Rooms is required
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div [class.group__2]="showRealtors">
+                            <mat-form-field *ngIf="showRealtors">
+                                <mat-label>Associated Realtor *</mat-label>
+                                <mat-select formControlName="realtorId">
+                                    <mat-option></mat-option>
+
+                                    <mat-option *ngFor="let realtor of realtors" [value]="realtor.id">
+                                        {{ realtor.username }}
+                                    </mat-option>
+                                </mat-select>
+
+                                <mat-error *ngIf="apartmentForm.get('realtorId').errors?.required">
+                                    Realtor is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="state-form-field">
+                                <mat-label>State *</mat-label>
+                                <mat-select formControlName="state">
+                                    <mat-option>
+                                    </mat-option>
+
+                                    <mat-option *ngFor="let state of ApartmentState | keyvalue" [value]="state.value">
+                                        {{ state.key }}
+                                    </mat-option>
+                                </mat-select>
+
+                                <mat-error *ngIf="apartmentForm.get('state').errors?.required">
+                                    Apartment state is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <h3>Address</h3>
+
+                        <div class="info-box">
+                            <strong>Note:</strong>
+                            When you input your address details, latitude and longitude will be retrieved for you.
+                            However, if you change latitude and/or longitude, your address details will change too.
+                        </div>
+
+                        <div class="group" formGroupName="address">
+                            <mat-form-field>
+                                <mat-label>Street Address *</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="text"
+                                    placeholder="Example: 419 Montgomary St"
+                                    formControlName="street1" />
+
+                                <mat-error *ngIf="apartmentForm.get('address').get('street1').errors?.maxlength">
+                                    Streeat address should not be longer than
+                                    {{ apartmentForm.get('address').get('street1').errors?.maxlength.requiredLength }}
+                                    characters
+                                </mat-error>
+
+                                <mat-error *ngIf="apartmentForm.get('address').get('street1').errors?.required">
+                                    Street address is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Street Address 2</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="text"
+                                    placeholder="Example: Los Angeles County"
+                                    formControlName="street2" />
+
+                                <mat-error *ngIf="apartmentForm.get('address').get('street2').errors?.maxlength">
+                                    Streeat address 2 should not be longer than
+                                    {{ apartmentForm.get('address').get('street2').errors?.maxlength.requiredLength }}
+                                    characters
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div class="group__3">
+                                <mat-form-field>
+                                    <mat-label>City *</mat-label>
+                                    <input
+                                        autocomplete
+                                        matInput
+                                        type="text"
+                                        placeholder="Example: Los Angeles"
+                                        formControlName="city" />
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('city').errors?.maxlength">
+                                        City should not be longer than
+                                        {{ apartmentForm.get('address').get('city').errors?.maxlength.requiredLength }}
+                                        characters
+                                    </mat-error>
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('city').errors?.required">
+                                        City is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field>
+                                    <mat-label>State/Region *</mat-label>
+                                    <input
+                                        autocomplete
+                                        matInput
+                                        type="text"
+                                        placeholder="Example: California"
+                                        formControlName="state" />
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('state').errors?.maxlength">
+                                        State should not be longer than
+                                        {{ apartmentForm.get('address').get('state').errors?.maxlength.requiredLength }}
+                                        characters
+                                    </mat-error>
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('state').errors?.required">
+                                        State/Region is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field>
+                                    <mat-label>Postal Code *</mat-label>
+                                    <input
+                                        autocomplete
+                                        matInput
+                                        type="text"
+                                        placeholder="Example: 4000"
+                                        formControlName="postalCode" />
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('postalCode').errors?.maxlength">
+                                        Postal code should not be longer than
+                                        {{ apartmentForm.get('address').get('postalCode').errors?.maxlength.requiredLength }}
+                                        characters
+                                    </mat-error>
+
+                                    <mat-error *ngIf="apartmentForm.get('address').get('postalCode').errors?.required">
+                                        Postal Code is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field>
+                                <mat-label>Country *</mat-label>
+                                <mat-select formControlName="country">
+                                    <mat-option></mat-option>
+
+                                    <mat-option *ngFor="let country of countries" [value]="country.code">
+                                        {{ country.name }}
+                                    </mat-option>
+                                </mat-select>
+
+                                <mat-error *ngIf="apartmentForm.get('address').get('country').errors?.required">
+                                    Country is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div formGroupName="coordinates" class="group__2">
+                            <mat-form-field>
+                                <mat-label>Latitude *</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="number"
+                                    placeholder="Example: -23.12345"
+                                    formControlName="lat" />
+
+                                <mat-error *ngIf="apartmentForm.get('coordinates').get('lat').errors?.required">
+                                    Latitude is required
+                                </mat-error>
+
+                                <mat-error
+                                    *ngIf="!apartmentForm.get('coordinates').get('lat').errors?.required">
+                                    Latitude must be between -90 and 90 degrees
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Longitude *</mat-label>
+                                <input
+                                    autocomplete
+                                    matInput
+                                    type="number"
+                                    placeholder="Example: 43.12345"
+                                    formControlName="lng" />
+
+                                <mat-error *ngIf="apartmentForm.get('coordinates').get('lng').errors?.required">
+                                    Longitude is required
+                                </mat-error>
+
+                                <mat-error
+                                    *ngIf="!apartmentForm.get('coordinates').get('lng').errors?.required">
+                                            Longitude must be between -180 and 180 degrees
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="map">
+                        <agm-map
+                            [style.height]="'100%'"
+                            [fitBounds]="apartmentForm.get('coordinates').valid"
+                            [latitude]="defaultLat"
+                            [longitude]="defaultLng"
+                            [streetViewControl]="false"
+                            [zoom]="16"
+                            [maxZoom]="18">
+
+                            <agm-marker
+                                [latitude]="lat"
+                                [longitude]="lng"
+                                [agmFitBounds]="true">
+                            </agm-marker>
+
+                        </agm-map>
+                    </div>
+
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button
+                    [disabled]="!apartmentForm.valid || loading"
+                    type="submit"
+                    color="accent"
+                    mat-raised-button>
+                    {{ loading ? 'Saving apartment' : 'Save apartment' }}
+                </button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+
+</div>

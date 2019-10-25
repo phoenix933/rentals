@@ -1,0 +1,48 @@
+@import "src/styles.scss";
+
+.apartment {
+    .row {
+        display: flex;
+        margin-bottom: 12px;
+
+        &:last-child {
+            justify-content: space-between;
+            margin-bottom: 0;
+        }
+    }
+
+    &__name {
+        margin: 0;
+    }
+
+    &__map {
+        margin-left: -24px;
+        margin-right: -24px;
+
+        agm-map {
+            height: 240px;
+        }
+    }
+
+    &__description {
+        font-style: italic;
+    }
+
+    &__price {
+        font-size: 1.5em;
+    }
+
+    &__address {
+        align-items: flex-start;
+    }
+}
+
+@include md {
+    .apartment {
+        &__map {
+            agm-map {
+                height: 160px;
+            }
+        }
+    }
+}

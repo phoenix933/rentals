@@ -1,0 +1,29 @@
+<div mat-dialog-title>
+    <h4>Delete {{ user.username }}</h4>
+
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div mat-dialog-content>
+
+    <p>
+        Are you sure you want to delete {{ user.username }}? This action cannot be reverted.
+    </p>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button type="button" mat-dialog-close>
+        Cancel
+    </button>
+    <button
+        [disabled]="deleteUserLoading$ | async"
+        (click)="deleteUser()"
+        type="button"
+        mat-raised-button
+        color="warn">
+        {{ (deleteUserLoading$ | async) ? 'Deleting..' : 'Delete forever' }}
+    </button>
+</div>

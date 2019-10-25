@@ -1,0 +1,79 @@
+@import "src/styles.scss";
+
+mat-card-content {
+    display: flex;
+
+    & > * {
+        flex: 1 1 50%;
+    }
+
+    .map {
+        margin-left: 32px;
+    }
+
+    .group {
+        & > * {
+            width: 100%;
+        }
+
+        &__3 {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            & > * {
+                $width: calc(33% - 24px);
+                flex: 0 1 $width;
+                max-width: $width;
+            }
+        }
+
+        &__2 {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            & > * {
+                $width: calc(50% - 16px);
+                flex: 0 1 $width;
+                max-width: $width;
+            }
+        }
+    }
+
+    .info-box {
+        padding: 16px;
+        box-sizing: border-box;
+        border-left: 6px solid #ffc107;
+        background: #ffecb3;
+        color: rgba(0,0,0,.87);
+        margin-bottom: 16px;
+    }
+
+    .state-form-field {
+        width: 100%;
+    }
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@include md {
+    .map {
+        display: none;
+    }
+
+    mat-card-content {
+        .group {
+            &__3, &__2 {
+                & > * {
+                    $width: 100%;
+                    flex: 1 1 $width;
+                    max-width: $width;
+                }
+            }
+        }
+    }
+}

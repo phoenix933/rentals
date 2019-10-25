@@ -1,0 +1,59 @@
+<mat-sidenav-container (backdropClick)="sidenav.close()">
+
+    <mat-sidenav
+        #sidenav
+        [style.display]="(isAuthenticated$ | async) ? '' : 'none'"
+        (keydown.escape)="sidenav.close()"
+        mode="push">
+        <mat-list>
+            <h3>Rentals</h3>
+
+            <mat-list-item (click)="sidenav.close()">
+                <a mat-button routerLink="/apartments">
+                    <mat-icon mat-list-icon>apartment</mat-icon>
+                    Apartments
+                </a>
+            </mat-list-item>
+
+            <mat-list-item *ngIf="(role$ | async) === UserRole.Admin" (click)="sidenav.close()">
+                <a mat-button routerLink="/users">
+                    <mat-icon mat-list-icon>supervisor_account</mat-icon>
+                    Users
+                </a>
+            </mat-list-item>
+
+            <mat-list-item (click)="sidenav.close()">
+                <button mat-button (click)="logOut()">
+                    <mat-icon mat-list-icon>exit_to_app</mat-icon>
+                    Log out
+                </button>
+            </mat-list-item>
+
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button
+                [style.display]="(isAuthenticated$ | async) ? '' : 'none'"
+                mat-button
+                (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <div>
+                Rentals
+            </div>
+
+        </mat-toolbar>
+
+        <div [hidden]="!routeLoading">
+            <mat-spinner>
+            </mat-spinner>
+        </div>
+        <div [hidden]="routeLoading">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,78 @@
+<div mat-dialog-title>
+    <h4>Create user</h4>
+
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form [formGroup]="createUserForm" (submit)="createUser()">
+
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input
+                autocomplete
+                matInput
+                type="text"
+                placeholder="Example: john_doe"
+                formControlName="username" />
+
+            <mat-error *ngIf="!createUserForm.get('username').errors?.required">
+                Username should be between 4 and 20 characters long
+            </mat-error>
+
+            <mat-error *ngIf="createUserForm.get('username').errors?.required">
+                Username is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+                autocomplete
+                matInput
+                type="password"
+                formControlName="password" />
+
+            <mat-error *ngIf="!createUserForm.get('password').errors?.required">
+                Password should be between 8 and 20 characters of length and should contain the following:
+                a capital letter, a special character and a number
+            </mat-error>
+
+            <mat-error *ngIf="createUserForm.get('password').errors?.required">
+                Password is required
+            </mat-error>
+        </mat-form-field>
+
+        <div class="role-radio">
+            <mat-label>
+                Role
+            </mat-label>
+
+            <mat-radio-group formControlName="role">
+                <mat-radio-button *ngFor="let role of UserRole | keyvalue" [value]="role.value">
+                    {{ role.key }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button type="button" mat-dialog-close>
+            Cancel
+        </button>
+        <button
+            [disabled]="!createUserForm.valid || (createUserLoading$ | async)"
+            type="submit"
+            mat-raised-button
+            color="accent">
+            {{ (createUserLoading$ | async) ? 'Saving..' : 'Save' }}
+        </button>
+    </div>
+
+</form>
+
+

@@ -1,0 +1,16 @@
+.content {
+    max-width: 480px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form > * {
+        width: 100%;
+    }
+
+    .login-button {
+        margin-top: 20px;
+    }
+}

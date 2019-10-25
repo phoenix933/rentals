@@ -1,0 +1,34 @@
+@import 'src/styles.scss';
+
+.apartment-list-filter {
+    form {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        & > * {
+            margin-right: 16px;
+        }
+    }
+}
+
+@include md {
+    :host {
+        width: 100%;
+    }
+
+    .apartment-list-filter {
+        form {
+            & > * {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 12px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

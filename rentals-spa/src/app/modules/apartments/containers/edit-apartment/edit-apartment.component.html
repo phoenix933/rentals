@@ -1,0 +1,15 @@
+<div class="content">
+
+    <app-apartment-form
+        [apartment]="apartment$ | async"
+        [coordinates]="coordinates"
+        [address]="address"
+        [loading]="loading$ | async"
+        [realtors]="realtors$ | async"
+        [showRealtors]="isAdmin"
+        (addressChanged)="getCoordinatesFromAddress($event)"
+        (coordinatesChanged)="getAddressFromCoordinates($event)"
+        (submitted)="updateApartment($event)">
+    </app-apartment-form>
+
+</div>

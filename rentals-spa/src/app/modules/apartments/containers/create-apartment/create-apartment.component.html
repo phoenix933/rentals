@@ -1,0 +1,14 @@
+<div class="content">
+
+    <app-apartment-form
+        [coordinates]="coordinates"
+        [address]="address"
+        [loading]="loading$ | async"
+        [realtors]="realtors$ | async"
+        [showRealtors]="isAdmin"
+        (addressChanged)="getCoordinatesFromAddress($event)"
+        (coordinatesChanged)="getAddressFromCoordinates($event)"
+        (submitted)="createApartment($event)">
+    </app-apartment-form>
+
+</div>

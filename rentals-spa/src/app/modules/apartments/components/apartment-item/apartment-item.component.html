@@ -1,0 +1,58 @@
+<div class="apartment" (click)="selectItem()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{ apartment.name }}
+
+                <button *ngIf="showMenu" class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu xPosition="before">
+                    <button (click)="edit()" mat-menu-item>Edit</button>
+                    <button (click)="delete()" mat-menu-item>Delete</button>
+                </mat-menu>
+
+            </mat-card-title>
+            <mat-card-subtitle>
+                <div>
+                    <mat-icon>apartment</mat-icon>
+                    <span>
+                        {{ apartment.areaSize }} m<sup>2</sup>
+                    </span>
+
+                    &nbsp;|&nbsp;
+
+                    <span>
+                        {{ apartment.roomsCount }} rooms
+                    </span>
+                </div>
+
+                <div>
+                    <mat-icon>location_on</mat-icon>
+
+                    <div>
+                        {{ apartment.address.street1 }},
+                        {{ apartment.address.city }},
+                        {{ apartment.address.country }}
+                    </div>
+
+                </div>
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div>
+                <app-apartment-state
+                    [state]="apartment.state">
+                </app-apartment-state>
+
+                <div class="apartment__price">
+                    {{ apartment.price | currency: 'USD' }}/month
+                </div>
+            </div>
+
+
+        </mat-card-content>
+
+    </mat-card>
+</div>

@@ -1,0 +1,8 @@
+.apartments-map {
+    height: 100%;
+
+    agm-map {
+        // Height is set in HTML as 100% as it wouldn't in work in CSS
+        height: 300px;
+    }
+}

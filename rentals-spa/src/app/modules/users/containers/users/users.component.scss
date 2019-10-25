@@ -1,0 +1,18 @@
+.content {
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .user-list__empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        mat-icon {
+            margin-right: 8px;
+        }
+    }
+}

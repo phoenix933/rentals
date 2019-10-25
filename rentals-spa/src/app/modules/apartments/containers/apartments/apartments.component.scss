@@ -1,0 +1,68 @@
+@import "src/styles.scss";
+
+.content {
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+    }
+
+    .apartment-list {
+        display: flex;
+        justify-content: space-between;
+
+        &__empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            mat-icon {
+                margin-right: 8px;
+            }
+        }
+
+        .list {
+            flex: 1 0 auto;
+        }
+
+        .map {
+            height: calc(100vh - 64px - 32px - 85px);
+            flex: 0 1 50%;
+            margin-left: 32px;
+
+            @include app-transition(flex);
+
+            &.sticky {
+                position: sticky;
+                display: block;
+                height: 100vh;
+                width: 50%;
+                right: 32px;
+                top: 0;
+            }
+
+        }
+    }
+}
+
+@include md {
+    .map, .content .apartment-list .map.sticky, .show-map-toggle {
+        display: none;
+    }
+
+    .content {
+        .apartment-list {
+            .list {
+                flex: 1 1 auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+<div class="content">
+
+    <div class="header">
+        <h1>Users</h1>
+        <button (click)="openCreateUserDialog()" mat-mini-fab matTooltip="Create a new user">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <app-user-list-filter
+        (changed)="onFilterChanged($event)">
+    </app-user-list-filter>
+
+    <mat-progress-bar
+        [style.visibility]="(getUsersLoading$ | async) ? 'initial' : 'hidden'"
+        mode="indeterminate">
+    </mat-progress-bar>
+
+    <ng-container *ngIf="users$ | async as users">
+
+        <ng-container *ngIf="users.length">
+            <app-user-list-table
+                [users]="users"
+                (edited)="openEditUserDialog($event)"
+                (deleted)="openDeleteUserDialog($event)">
+            </app-user-list-table>
+        </ng-container>
+
+        <div [style.visibility]="users.length ? '' : 'hidden'">
+            <mat-paginator
+                #paginator
+                [length]="count$ | async"
+                [pageSize]="pageSize"
+                (page)="onPageChanged($event)">
+            </mat-paginator>
+        </div>
+
+        <div class="user-list__empty" *ngIf="!(getUsersLoading$ | async) && !users.length">
+            <mat-icon>sentiment_dissatisfied</mat-icon>
+            <h3>Sorry, no users fit your criteria.</h3>
+        </div>
+
+    </ng-container>
+
+
+</div>

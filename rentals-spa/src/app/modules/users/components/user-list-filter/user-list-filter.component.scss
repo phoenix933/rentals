@@ -1,0 +1,39 @@
+@import "src/styles.scss";
+
+.user-list-filter {
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        mat-form-field {
+            margin-right: 16px;
+        }
+
+        .apply-button {
+            margin-left: auto;
+        }
+    }
+}
+
+@include md {
+    .user-list-filter {
+        form {
+            & > * {
+                width: 100%;
+            }
+
+            mat-form-field {
+                margin-right: 0;
+            }
+
+            .apply-button {
+                margin-left: 0;
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+

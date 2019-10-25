@@ -1,0 +1,10 @@
+<mat-chip-list>
+    <!-- css classes don't work when setting the chip color -->
+    <mat-chip
+        [style.backgroundColor]="state === ApartmentState.Available ? '#00e676' : ''"
+        color="warn"
+        selected
+        selectable="false">
+        {{ state }}
+    </mat-chip>
+</mat-chip-list>

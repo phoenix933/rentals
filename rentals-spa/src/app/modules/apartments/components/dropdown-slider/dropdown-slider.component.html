@@ -1,0 +1,50 @@
+<div class="dropdown-slider">
+    <button class="dropdown-slider__open-button" [color]="hasValue ? 'accent' : ''"  mat-raised-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+        <div *ngIf="hasValue; else noValue">
+            <ng-content select=".button">
+            </ng-content>
+        </div>
+        <ng-template #noValue>
+            {{ label }}
+        </ng-template>
+    </button>
+
+    <mat-menu
+        #menu
+        (closed)="onMenuClosed()"
+        class="filter-menu"
+        xPosition="before"
+        hasBackdrop="true"
+        backdropClass="dropdown-slider-backdrop">
+        <div (click)="$event.stopPropagation();">
+            <form [formGroup]="form">
+                <mat-label>{{ label }}</mat-label>
+                <!-- Add this to apply a margin of 1 -->
+                <!-- [config]="{ margin: 1 }" -->
+                <nouislider
+                    [connect]="true"
+                    [min]="min"
+                    [max]="max"
+                    [step]="1"
+                    [formControl]="form.get('range')">
+                </nouislider>
+            </form>
+
+            <div class="dropdown-slider__value">
+                <ng-content select=".inside">
+
+                </ng-content>
+            </div>
+
+            <div class="dropdown-slider__buttons">
+                <button type="button" mat-button (click)="resetForm()">
+                    Clear
+                </button>
+
+                <button type="button" color="accent" mat-raised-button (click)="menuTrigger.closeMenu()">
+                    Apply
+                </button>
+            </div>
+        </div>
+    </mat-menu>
+</div>

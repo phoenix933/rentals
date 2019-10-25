@@ -1,0 +1,80 @@
+<div class="apartment">
+
+    <div mat-dialog-title>
+        <h4 class="apartment__name">{{ apartment.name }}</h4>
+
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="apartment__map">
+        <agm-map
+            [fitBounds]="true"
+            [streetViewControl]="false"
+            [zoom]="16"
+            [maxZoom]="18">
+
+            <agm-marker
+                [latitude]="apartment.address.lat"
+                [longitude]="apartment.address.lng"
+                [agmFitBounds]="true">
+            </agm-marker>
+
+        </agm-map>
+    </div>
+
+    <div mat-dialog-content>
+
+        <p class="apartment__description">
+            {{ apartment.description }}
+        </p>
+
+        <div class="row">
+            <mat-icon>apartment</mat-icon>
+            <span>
+                {{ apartment.areaSize }} m<sup>2</sup>
+            </span>
+
+            &nbsp;|&nbsp;
+
+            <span>
+                {{ apartment.roomsCount }} rooms
+            </span>
+        </div>
+
+        <div class="row apartment__address">
+            <mat-icon>location_on</mat-icon>
+
+            <div>
+                {{ apartment.address.postalCode }},
+                {{ apartment.address.street1 }},
+                <ng-template *ngIf="apartment.address.street2">
+                    {{ apartment.address.street2 }},
+                </ng-template>
+                {{ apartment.address.city }},
+                {{ apartment.address.state }},
+                {{ apartment.address.country }}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <app-apartment-state
+                [state]="apartment.state">
+            </app-apartment-state>
+
+            <div class="apartment__price">
+                {{ apartment.price | currency: 'USD' }}/month
+            </div>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button type="button" mat-dialog-close>
+            Done
+        </button>
+    </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="apartments-map">
+    <!-- set style.height = 100% because it wouldn't work in *.scss -->
+    <agm-map
+        [style.height]="'100%'"
+        [fitBounds]="true"
+        [streetViewControl]="false"
+        [zoom]="16"
+        [maxZoom]="18">
+
+        <agm-marker *ngFor="let apartment of apartments"
+            [latitude]="apartment.address.lat"
+            [longitude]="apartment.address.lng"
+            [agmFitBounds]="true"
+            (markerClick)="selectMarker(infoWindow)">
+
+            <agm-info-window #infoWindow>
+                <h2>
+                    {{ apartment.name }}
+                </h2>
+                <a [routerLink]="" (click)="selectItem(apartment)">See details</a> <br />
+                <p>
+                    {{ apartment.description }}
+                </p>
+            </agm-info-window>
+
+        </agm-marker>
+
+    </agm-map>
+</div>

@@ -1,0 +1,74 @@
+<div class="content">
+
+    <div class="header">
+        <h1>Apartments</h1>
+        <button
+            *ngIf="role !== UserRole.Client"
+            routerLink="/apartments/create"
+            mat-mini-fab
+            matTooltip="Create a new apartment">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <div class="filter">
+        <app-apartment-list-filter
+            [showStates]="role !== UserRole.Client"
+            (changed)="onFilterChanged($event)">
+        </app-apartment-list-filter>
+
+        <mat-slide-toggle
+            class="show-map-toggle"
+            (change)="toggleMapVisibility()"
+            [checked]="mapVisible"
+            [disabled]="!apartments.length"
+            labelPosition="before"
+            color="accent">
+            Show map
+        </mat-slide-toggle>
+    </div>
+
+    <mat-progress-bar
+        [style.visibility]="(getApartmentsLoading$ | async) ? 'initial' : 'hidden'"
+        mode="indeterminate">
+    </mat-progress-bar>
+
+    <div class="apartment-list">
+
+            <div class="list" *ngIf="apartments">
+
+                <ng-container *ngIf="apartments.length">
+                    <app-apartment-item
+                        *ngFor="let apartment of apartments"
+                        [apartment]="apartment"
+                        [showMenu]="role !== UserRole.Client"
+                        (edited)="redirectToEdit($event)"
+                        (deleted)="openDeleteApartmentDialog($event)"
+                        (itemClicked)="openApartmentDetailsDialog($event)">
+                    </app-apartment-item>
+                </ng-container>
+
+                <mat-paginator
+                    #paginator
+                    [style.visibility]="apartments.length ? '' : 'hidden'"
+                    [length]="count$ | async"
+                    [pageSize]="pageSize"
+                    (page)="onPageChanged($event)">
+                </mat-paginator>
+
+                <div class="apartment-list__empty" *ngIf="!(getApartmentsLoading$ | async) && !apartments.length">
+                    <mat-icon>sentiment_dissatisfied</mat-icon>
+                    <h3>Sorry, no apartments fit your criteria.</h3>
+                </div>
+
+            </div>
+
+            <div [style.flex]="mapVisible ? '0 1 50%' : '0'" class="map" #map [class.sticky]="mapSticky">
+                <app-apartments-map
+                    [apartments]="apartments"
+                    (itemClicked)="openApartmentDetailsDialog($event)">
+                </app-apartments-map>
+            </div>
+    </div>
+
+</div>

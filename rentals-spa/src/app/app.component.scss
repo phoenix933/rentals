@@ -1,0 +1,30 @@
+@import "src/styles.scss";
+
+mat-sidenav {
+    min-width: 320px;
+    max-width: calc(100vw - 40px);
+
+    h3 {
+        padding: 0 16px;
+    }
+
+   .mat-list-item {
+        width: 100%;
+
+        .mat-button {
+            width: 100%;
+            text-align: left;
+        }
+    }
+}
+
+mat-spinner {
+    margin: 32px auto;
+}
+
+@include md {
+    mat-sidenav {
+        min-width: 0;
+        width: 280px;
+    }
+}

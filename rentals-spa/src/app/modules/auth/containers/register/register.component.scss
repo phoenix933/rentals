@@ -1,0 +1,26 @@
+.content {
+    max-width: 480px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form > * {
+        width: 100%;
+    }
+
+    .role-radio {
+        display: flex;
+        flex-direction: column;
+
+        mat-radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .register-button {
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,96 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body, mat-sidenav-container { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.content {
+    padding: 32px;
+    margin: 0 auto;
+    // max-width: 640px;
+}
+
+.custom-dialog {
+    max-height: 90vh;
+
+    .mat-dialog-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mat-dialog-content {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .mat-dialog-content > * {
+        width: 100%;
+    }
+
+    .mat-dialog-actions {
+        justify-content: flex-end;
+    }
+}
+
+.noUi-target {
+    height: 2px
+}
+
+.noUi-base {
+    height: 2px
+}
+
+.noUi-horizontal .noUi-handle {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #ff4081;
+    box-shadow: none;
+    top: -7px;
+}
+
+.noUi-handle:after, .noUi-handle:before {
+    content: none;
+}
+
+html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
+    right: -8px;
+    left: auto;
+}
+
+.noUi-connect {
+    background-color: #ff4081;
+}
+
+.filter-menu {
+    width: 280px;
+
+    .mat-menu-content:not(:empty) {
+        padding: 32px;
+    }
+}
+
+.dropdown-slider-backdrop {
+    background-color: rgba(0,0,0,0.34);
+}
+
+@mixin md {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin app-transition($prop) {
+    transition: $prop 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+@include md {
+    .content {
+        padding: 16px;
+    }
+
+    .custom-dialog {
+        max-width: 320px;
+    }
+}
